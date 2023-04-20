@@ -1,8 +1,29 @@
 <?php require(__DIR__.'/layouts/header.php'); ?>  
 <?php 
 
-$sql_sanpham = "SELECT * FROM sanpham";
-$sanpham = queryResult($conn,$sql_sanpham);
+
+
+$start = 0;
+$limit = 6;
+
+$sql_soluongsp = "SELECT * FROM sanpham";
+$tongsanpham = queryResult($conn,$sql_soluongsp)->num_rows;
+$sotrang = ceil($tongsanpham / $limit);
+
+if(isset($_GET['trang'])){
+	if($_GET['trang'] <= 0){
+		$_GET['trang'] = 1;
+	}
+
+	$start = ($_GET['trang'] - 1) * $limit; 
+	$sql_sanpham = "SELECT * FROM sanpham LIMIT ".$start.",".$limit;
+	$sanpham = queryResult($conn,$sql_sanpham);
+}else{
+	$sql_sanpham = "SELECT * FROM sanpham LIMIT ".$start.",".$limit;
+	$sanpham = queryResult($conn,$sql_sanpham);
+}
+
+
 
  ?>  
 		<section class="breadcrumb-section">
@@ -173,6 +194,29 @@ $sanpham = queryResult($conn,$sql_sanpham);
 				</div>
 				
 			</div>
+			<nav aria-label="Page navigation example">
+				<br>
+				<br>
+				<ul class="pagination" style="justify-content: center;">
+					<?php if(isset($_GET['trang'])){ ?>
+						<li class="page-item"><a class="page-link" href="./tat-ca-san-pham.php?trang=<?php echo $_GET['trang'] - 1; ?>">Trước</a></li>
+					<?php }else{ ?>
+						<li class="page-item"><a class="page-link" href="#">Trước</a></li>
+					<?php } ?>
+					<?php for($i = 1; $i <= $sotrang; $i++){ ?>
+						<?php if($i == 1){ ?>
+							<li class="page-item"><a class="page-link" href="./tat-ca-san-pham.php"><?php echo $i; ?></a></li>
+						<?php }else{ ?>
+							<li class="page-item"><a class="page-link" href="./tat-ca-san-pham.php?trang=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+						<?php } ?>
+					<?php } ?>
+					<?php if(isset($_GET['trang']) && $sotrang >= 2 && $sotrang != $_GET['trang']){ ?>
+						<li class="page-item"><a class="page-link" href="./tat-ca-san-pham.php?trang=<?php echo $_GET['trang'] + 1; ?>">Sau</a></li>
+					<?php }else{ ?>
+						<li class="page-item"><a class="page-link" href="#">Sau</a></li>
+					<?php } ?>
+				</ul>
+			</nav>
 		</main>
 	</div>
 
