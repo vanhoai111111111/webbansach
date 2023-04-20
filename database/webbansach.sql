@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2023 at 11:19 PM
+-- Generation Time: Apr 20, 2023 at 08:56 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -31,17 +31,9 @@ CREATE TABLE `chitietdonhang` (
   `machitietdonhang` int(11) NOT NULL,
   `madonhang` int(11) NOT NULL,
   `masanpham` int(11) NOT NULL,
-  `giatien` int(11) NOT NULL
+  `giatien` int(11) NOT NULL,
+  `soluong` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `chitietdonhang`
---
-
-INSERT INTO `chitietdonhang` (`machitietdonhang`, `madonhang`, `masanpham`, `giatien`) VALUES
-(23, 31, 10, 55000),
-(24, 32, 10, 55000),
-(25, 32, 8, 198900);
 
 -- --------------------------------------------------------
 
@@ -76,14 +68,6 @@ CREATE TABLE `donhang` (
   `diachi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `thoigian` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `donhang`
---
-
-INSERT INTO `donhang` (`madonhang`, `makhachhang`, `trangthai`, `tongtien`, `diachi`, `thoigian`) VALUES
-(31, 2, 3, 55000, 'a, a, a, a, a', '2023-04-03'),
-(32, 2, 3, 253000, 'a, a, a, a, a', '2023-04-03');
 
 -- --------------------------------------------------------
 
@@ -215,7 +199,7 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT for table `chitietdonhang`
 --
 ALTER TABLE `chitietdonhang`
-  MODIFY `machitietdonhang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `machitietdonhang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `chuyenmuc`
@@ -227,7 +211,7 @@ ALTER TABLE `chuyenmuc`
 -- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `madonhang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `madonhang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `khachhang`
