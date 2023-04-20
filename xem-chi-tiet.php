@@ -74,7 +74,7 @@ $chitietdonhang = queryResult($conn,$sql_chitiet);
 								</thead>
 								<tbody>
 									<?php while($row = $chitietdonhang->fetch_assoc()){ ?>
-										<tr> <td><a href="http://localhost/webbansach/san-pham.php?id=<?php echo $row['masanpham']; ?>"><?php echo $row['tensanpham']; ?></a> <strong>× 1</strong></td> <td><span><?php echo number_format($row['giaban']); ?>đ</span></td> </tr>
+										<tr> <td><a href="http://localhost/webbansach/san-pham.php?id=<?php echo $row['masanpham']; ?>"><?php echo $row['tensanpham']; ?></a> <strong>× <?php echo $row['soluong']; ?></strong></td> <td><span><?php echo number_format($row['giaban'] * $row['soluong']); ?>đ</span></td> </tr>
 									<?php } ?>
 								</tbody>
 								

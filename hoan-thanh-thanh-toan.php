@@ -66,7 +66,8 @@ if(!isset($_SESSION['dangnhap'])){
 
         var donhangthanhcong = JSON.parse(localStorage.getItem('thongtindonhang'))
         for (var i = 0; i < donhangthanhcong.length; i++) {
-            $('tbody').append('<tr> <td><a href="http://localhost/webbansach/san-pham.php?id='+donhangthanhcong[i].masanpham+'">'+donhangthanhcong[i].tensanpham+'</a> <strong>× '+donhangthanhcong[i].soluong+'</strong></td> <td><span>'+donhangthanhcong[i].giaban+'</span></td> </tr>')
+        	var gia = parseInt(donhangthanhcong[i].giaban) * parseInt(donhangthanhcong[i].soluong) * 1000
+            $('tbody').append('<tr> <td><a href="http://localhost/webbansach/san-pham.php?id='+donhangthanhcong[i].masanpham+'">'+donhangthanhcong[i].tensanpham+'</a> <strong>× '+donhangthanhcong[i].soluong+'</strong></td> <td><span>'+gia.toLocaleString('vi', {style : 'currency', currency : 'VND'})+'</span></td> </tr>')
         }
 
         $('.mdh').html('#000'+localStorage.getItem('madonhang'))

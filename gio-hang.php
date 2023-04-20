@@ -73,8 +73,10 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
+
     $(document).ready(function() {
         var giohang = localStorage.getItem('giohang')
+        var id = 0;
 
         if(giohang == null){
         	window.location.href = 'index.php'
@@ -82,13 +84,14 @@
             var giohang = JSON.parse(localStorage.getItem('giohang'))
             var tien = 0
             for (var i = 0; i < giohang.length; i++) {
-                $('tbody').append('<tr> <td class="pro-remove" "><a href="#" class="xoa" value="'+giohang[i].masanpham+'"><i class="far fa-trash-alt"></i></a> </td> <td class="pro-thumbnail"><a href="#"><img src="http://localhost/webbansach/'+giohang[i].anhchinh+'" alt="Product"></a></td> <td class="pro-title"><a href="#">'+giohang[i].tensanpham+'</a></td> <td class="pro-price"><span>'+giohang[i].giaban+'</span></td> <td class="pro-quantity"> <div class="pro-qty"> <div class="count-input-block"> <input type="number" class="form-control text-center" value="'+giohang[i].soluong+'"> </div> </div> </td> <td class="pro-subtotal"><span>'+giohang[i].giaban+'</span></td> </tr>')
-                tien += parseInt(giohang[i].giaban)
+            	var gia = parseInt(giohang[i].giaban) * parseInt(giohang[i].soluong) * 1000
+                $('tbody').append('<tr> <td class="pro-remove" "><a href="#" class="xoa" value="'+giohang[i].masanpham+'"><i class="far fa-trash-alt"></i></a> </td> <td class="pro-thumbnail"><a href="#"><img src="http://localhost/webbansach/'+giohang[i].anhchinh+'" alt="Product"></a></td> <td class="pro-title"><a href="#">'+giohang[i].tensanpham+'</a></td> <td class="pro-price"><span>'+gia.toLocaleString('vi', {style : 'currency', currency : 'VND'})+'</span></td> <td class="pro-quantity"> <div class="pro-qty"> <div class="count-input-block"> <input type="number" class="form-control text-center number" data="'+giohang[i].masanpham+'" value="'+giohang[i].soluong+'"> </div> </div> </td> <td class="pro-subtotal"><span>'+gia.toLocaleString('vi', {style : 'currency', currency : 'VND'})+'</span></td> </tr>')
+                tien += gia
             }
 
             $('.soluongsanpham').html(giohang.length + ' sản phẩm')
 
-            $('.tongtien').html(tien + ',000đ')
+            $('.tongtien').html(tien.toLocaleString('vi', {style : 'currency', currency : 'VND'}))
 
             $('.xoa').click(function(argument) {
             	var masanpham = $(this).attr('value')
@@ -103,6 +106,30 @@
 
             })
         }
+
+
+
+        $(".number").on("input", function() {
+			var sl = $(this).val(); 
+
+			var msp = $(this).attr('data');
+
+			for (var i = 0; i < giohang.length; i++) {
+				if(giohang[i].masanpham == msp){
+					id = i
+				}
+			}
+
+
+			if(sl <= 0){
+				
+			}else{
+				giohang[id].soluong = sl
+				localStorage.setItem('giohang',JSON.stringify(giohang))
+				location.reload();
+			}
+			
+		});
 
 
         

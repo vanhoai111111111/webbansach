@@ -79,13 +79,14 @@
                 var giohang = JSON.parse(localStorage.getItem('giohang'))
                 var tien = 0
                 for (var i = 0; i < giohang.length; i++) {
+                    var gia = parseInt(giohang[i].giaban) * parseInt(giohang[i].soluong) * 1000
                     $('.sanpham_giohang').append('<div class=" single-cart-block "> <div class="cart-product"> <a href="san-pham.php?id='+giohang[i].masanpham+'" class="image"> <img style="width: 100px; height: 100px;" src="http://localhost/webbansach/'+giohang[i].anhchinh+'" alt=""> </a> <div class="content"> <h3 class="title"><a href="san-pham.php?id='+giohang[i].masanpham+'">'+giohang[i].tensanpham+'</a> </h3> <p class="price"><span class="qty">'+giohang[i].soluong+' ×</span> '+giohang[i].giaban+'đ</p> </div> </div> </div>')
-                    tien += parseInt(giohang[i].giaban)
+                    tien += gia
                 }
 
                 $('.slgiohang').html(giohang.length)
 
-                $('.tiengiohang').html(tien + ',000đ')
+                $('.tiengiohang').html(tien.toLocaleString('vi', {style : 'currency', currency : 'VND'}))
 
                 $('.dh').append('<div class="btn-block"> <a href="gio-hang.php" class="btn">Xem Giỏ Hàng <i class="fas fa-chevron-right"></i></a> <a href="thanh-toan.php" class="btn btn--primary">Thanh Toán <i class="fas fa-chevron-right"></i></a> </div>')
                 

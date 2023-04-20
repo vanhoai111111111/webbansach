@@ -110,20 +110,28 @@ $khachhang = queryResult($conn, $sql_khachhang)->fetch_assoc();
             var giohang = JSON.parse(localStorage.getItem('giohang'))
             
             for (var i = 0; i < giohang.length; i++) {
-                $('.thongtinsanpham').append('<li><span class="left">'+giohang[i].tensanpham+' X '+giohang[i].soluong+'</span> <span class="right">'+giohang[i].giaban+'đ</span></li>')
-                tien += parseInt(giohang[i].giaban)
+            	var gia = parseInt(giohang[i].giaban) * parseInt(giohang[i].soluong) * 1000
+                $('.thongtinsanpham').append('<li><span class="left">'+giohang[i].tensanpham+' X '+giohang[i].soluong+'</span> <span class="right">'+gia.toLocaleString('vi', {style : 'currency', currency : 'VND'})+'</span></li>')
+                tien += parseInt(gia)
             }
             $('.sl').html(giohang.length + ' sản phẩm')
-            $('.tt').html(tien + ',000đ')
+            $('.tt').html(tien.toLocaleString('vi', {style : 'currency', currency : 'VND'}))
         }
 
+        var soluong = [] 
         $('.dathang').click(function(event) {
         	event.preventDefault()
         	var diachi = $('.sonha').val() + ", " + $('.thonxom').val() + ", " + $('.phuongxa').val() + ", " + $('.huyen').val() + ", " + $('.tinhthanh').val()
         	var makhachhang = '<?php echo $khachhang["makhachhang"] ?>'
         	var sanpham = JSON.parse(localStorage.getItem('giohang'))
 
-       		$.post('xu-ly-thanh-toan.php', {makhachhang: makhachhang, diachi:diachi, sanpham:sanpham, tongtien: tien}, function(data) {
+        	soluong.length = 0;
+        	for (var i = 0; i < sanpham.length; i++) {
+        		soluong.push(sanpham[i].soluong)
+        	}
+
+
+       		$.post('xu-ly-thanh-toan.php', {makhachhang: makhachhang, diachi:diachi, sanpham:sanpham, tongtien: tien, soluong: soluong}, function(data) {
        			var madonhang = data
        			var thoigian = '<?php echo date("d/m/Y") ?>'
        			var thongtindonhang = localStorage.getItem('giohang')
@@ -133,7 +141,7 @@ $khachhang = queryResult($conn, $sql_khachhang)->fetch_assoc();
        			localStorage.setItem('madonhang',madonhang)
        			localStorage.setItem('thoigian',thoigian)
        			localStorage.setItem('thongtindonhang',thongtindonhang)
-       			localStorage.setItem('tt',tien + ',000đ')
+       			localStorage.setItem('tt',tien.toLocaleString('vi', {style : 'currency', currency : 'VND'}))
 
        			window.location.href = 'hoan-thanh-thanh-toan.php'
        		});

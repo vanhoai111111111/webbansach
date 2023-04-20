@@ -53,12 +53,12 @@ $result = queryResult($conn,$sql_chitiet);
                                        			<p>Không có sản phẩm nào trong đơn hàng #000<?php echo $_GET['id']; ?></p>
                                        		<?php } else { ?>
                                             <?php $i = 1; $tongtien = 0; ?>
-					                        <?php while($row = $result->fetch_assoc()) { $tongtien += $row['giaban'];?>
+					                        <?php while($row = $result->fetch_assoc()) { $tongtien += $row['giaban'] * $row['soluong'];?>
 	                                            <tr>
 	                                                <th scope="row"><?php echo $i; ?></th>
 	                                                <td><?php echo $row['tensanpham']; ?></td>
-                                                    <td>1 cái</td>
-	                                                <td><?php echo number_format($row['giaban']); ?>đ</td>
+                                                    <td><?php echo $row['soluong']; ?> cái</td>
+	                                                <td><?php echo number_format($row['giaban'] * $row['soluong']); ?>đ</td>
 	                                            </tr>
                                             <?php $i++; } } ?>
 
