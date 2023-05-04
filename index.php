@@ -166,10 +166,10 @@ $danhchoban = queryResult($conn,$sql_danhchoban);
                                         </div>
                                         <div class="product-card--body">
                                             <div class="card-image">
-                                                <img src="http://localhost/webbansach/<?php echo $row['anhchinh']; ?>" alt="" style="width: 220px; height:220px; ">
+                                                <img src="<?php echo $row['anhchinh']; ?>" alt="" style="width: 220px; height:220px; ">
                                                 <div class="hover-contents">
                                                     <a href="san-pham.php?id=<?php echo $row['masanpham']; ?>" class="hover-image">
-                                                        <img src="http://localhost/webbansach/<?php echo $row['anhphu1']; ?>" alt="" style="width: 220px; height:220px; ">
+                                                        <img src="<?php echo $row['anhphu1']; ?>" alt="" style="width: 220px; height:220px; ">
                                                     </a>
                                                 </div>
                                             </div>
