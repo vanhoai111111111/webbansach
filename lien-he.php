@@ -1,4 +1,22 @@
-<?php require(__DIR__.'/layouts/header.php'); ?>  
+<?php include('layouts/header.php'); ?>  
+<?php 
+
+
+if($_SERVER['REQUEST_METHOD'] == 'POST' ){
+	$hoten = $_POST['con_name'];
+	$email = $_POST['con_email'];
+	$dienthoai = $_POST['con_phone'];
+	$tinnhan = $_POST['con_message'];
+    $sql_insert = "INSERT INTO `lienhe`(`hoten`, `email`, `dienthoai`, `tinnhan`) VALUES ('$hoten','$email','$dienthoai','$tinnhan')";
+    $insert = queryExecute($conn,$sql_insert);
+    $success = "phản Hồi Thành Công!";
+   echo $success;
+		
+}
+
+
+?>
+
         <section class="breadcrumb-section">
             <h2 class="sr-only">Site Breadcrumb</h2>
             <div class="container">
@@ -54,7 +72,7 @@
                     <div class="col-lg-7 col-md-7 col-12 mt--30 mt-md--0">
                         <div class="contact_form">
                             <h3 class="ct_title">Gửi Phản Hồi</h3>
-                            <form id="contact-form" action="php/mail.php" method="post" class="contact-form">
+                            <form id="contact-form"  method="POST" class="contact-form">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
@@ -92,9 +110,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="form-output">
-                                <p class="form-messege"></p>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
